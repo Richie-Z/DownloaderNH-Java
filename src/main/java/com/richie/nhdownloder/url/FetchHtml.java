@@ -62,5 +62,6 @@ public class FetchHTML {
 
     public static void main(String[] args) throws IOException {
         FetchHTML fh = new FetchHTML("https://nhentai.net/g/1");
+        System.out.println(fh.main());
     }
 }
