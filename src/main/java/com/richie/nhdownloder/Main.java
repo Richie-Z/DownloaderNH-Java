@@ -17,17 +17,6 @@ import org.jsoup.select.Elements;
  */
 public class Main {
 
-    static void example() {
-//        Element questionHeader = docs.getElementById("question-header");
-        //        Elements links = questionHeader.getElementsByTag("a");
-        //        System.out.println(questionHeader);
-        //        for (Element link : links) {
-        //            if (link.className().equals("question-hyperlink")) {
-        //                System.out.println(link.text());
-        //            }
-        //        }
-    }
-
     public static void main(String[] args) {
         Document docs = null;
         String url = "https://nhentai.net/g/357326/";
