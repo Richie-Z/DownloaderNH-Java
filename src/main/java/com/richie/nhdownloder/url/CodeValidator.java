@@ -16,7 +16,7 @@ public class CodeValidator {
     public CodeValidator(String code) {
         this.code = this.validation(code);
     }
-
+    
     private final String validation(String c) {
         if (c.toCharArray()[0] == '#') {
             return this.validInteger(c.substring(1));
