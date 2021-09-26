@@ -73,7 +73,7 @@ public class Scraper {
             String uri = String.format(GALLERY_URL, idImages, (i + 1));
             url[i] = uri;
         }
-        return null;
+        return url;
     }
 
     private String getPictureURL(String html) throws IOException {
