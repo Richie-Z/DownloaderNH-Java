@@ -9,6 +9,7 @@ import com.richie.nhdownloder.url.CodeValidator;
 import com.richie.nhdownloder.url.FetchHTML;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.jsoup.Jsoup;
@@ -27,6 +28,7 @@ public class Scraper {
     private List<String> info = new ArrayList<String>();
     private HashMap<String, Object> tags = new HashMap<>();
     private String code = "";
+    private final String GALLERY_URL = "https://i.nhentai.net/galleries/%s/%d.jpg";
 
     public Scraper(Document d, String c) {
         this.doc = d;
@@ -53,28 +55,39 @@ public class Scraper {
         });
     }
 
-    public String tagInformation(String s) {
+    private String tagInformation(String s) {
         Document dc = Jsoup.parseBodyFragment(s);
         Elements name = dc.getElementsByClass("name");
         return name.html();
     }
 
-    public String getPictureURL() {
+    public String[] getPicturesURL() throws IOException {
         if (this.tags.isEmpty()) {
             this.getTag();
         }
+        String imgSrc = this.getPictureURL(String.format("%s/%d", this.code, 1)),
+                idImages = this.getIdPicture(imgSrc);
         int pages = Integer.parseInt(this.tags.get("Pages").toString());
-        for (int i = 1; i <= pages; i++) {
-            System.out.printf("https://i.nhentai.net/galleries/%s/%d.jpg %n", this.code, i);
+        String[] url = new String[pages];
+        for (int i = 0; i < pages; i++) {
+            String uri = String.format(GALLERY_URL, idImages, (i + 1));
+            url[i] = uri;
         }
         return null;
     }
 
-    public static void main(String[] args) throws IOException {
-        FetchHTML fh = new FetchHTML(new CodeValidator("371274").toString());
-        Scraper sc = new Scraper(fh.main(), "371274");
-        sc.getTitles();
-        sc.getPictureURL();
+    private String getPictureURL(String html) throws IOException {
+        if (html == null) {
+            return null;
+        }
+        FetchHTML fh = new FetchHTML(html);
+        Document dc = fh.main();
+        Element img = dc.getElementById("image-container");
+        return img.child(0).child(0).absUrl("src");
     }
 
+    private String getIdPicture(String img) {
+        String[] arrayString = img.split("[, ?/]+");
+        return arrayString[3];
+    }
 }
