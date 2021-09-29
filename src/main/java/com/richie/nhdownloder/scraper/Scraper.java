@@ -3,6 +3,7 @@ package com.richie.nhdownloder.scraper;
 import com.richie.nhdownloder.url.FetchHTML;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.jsoup.Jsoup;
@@ -20,7 +21,7 @@ public class Scraper {
     private StringBuilder title = new StringBuilder();
     private List<String> info = new ArrayList<String>();
     private HashMap<String, Object> tags = new HashMap<>();
-    protected String code = "";
+    protected String code = "", ext = "";
     private final String GALLERY_URL = "https://i.nhentai.net/galleries/%s/%d.jpg";
 
     public Scraper(Document d, String c) {
@@ -60,6 +61,7 @@ public class Scraper {
         }
         String imgSrc = this.getPictureURL(String.format("%s/%d", this.code, 1)),
                 idImages = this.getIdPicture(imgSrc);
+        this.ext = this.getExtPicture(imgSrc);
         int pages = Integer.parseInt(this.tags.get("Pages").toString());
         String[] url = new String[pages];
         for (int i = 0; i < pages; i++) {
@@ -69,7 +71,7 @@ public class Scraper {
         return url;
     }
 
-    private String getPictureURL(String html) throws IOException {
+    protected String getPictureURL(String html) throws IOException {
         if (html == null) {
             return null;
         }
@@ -82,5 +84,10 @@ public class Scraper {
     private String getIdPicture(String img) {
         String[] arrayString = img.split("[, ?/]+");
         return arrayString[3];
+    }
+
+    private String getExtPicture(String img) {
+        String arr = img.replaceAll(".*\\.", "");
+        return arr;
     }
 }
