@@ -20,7 +20,7 @@ public class Scraper {
     private StringBuilder title = new StringBuilder();
     private List<String> info = new ArrayList<String>();
     private HashMap<String, Object> tags = new HashMap<>();
-    private String code = "";
+    protected String code = "";
     private final String GALLERY_URL = "https://i.nhentai.net/galleries/%s/%d.jpg";
 
     public Scraper(Document d, String c) {
