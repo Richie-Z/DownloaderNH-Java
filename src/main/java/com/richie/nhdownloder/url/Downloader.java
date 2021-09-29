@@ -1,10 +1,6 @@
-/*
- * Richie Zakaria
- */
 package com.richie.nhdownloder.url;
 
 import com.richie.nhdownloder.scraper.Scraper;
-import com.sun.corba.se.impl.ior.ByteBuffer;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
