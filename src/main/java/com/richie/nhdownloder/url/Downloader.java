@@ -2,11 +2,8 @@ package com.richie.nhdownloder.url;
 
 import com.richie.nhdownloder.scraper.Scraper;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -26,8 +23,10 @@ public class Downloader extends Scraper {
 
     public void startDownload() throws IOException {
         String[] url = super.getPicturesURL();
-        for (int i = 0; i <= url.length; i++) {
-            this.downloadImage(url[i], "a");
+        for (int i = 0; i < url.length; i++) {
+            String fileName = String.format("%d.%s", (i + 1), super.ext);
+            this.downloadImage(url[i], fileName);
+            System.out.printf("%d/%d ", (i + 1), url.length);
         }
     }
 
@@ -53,7 +52,6 @@ public class Downloader extends Scraper {
             FileOutputStream out = (new FileOutputStream(new File(dir.concat("/" + fileName))));
             out.write(b);
             out.close();
-            System.out.println("Success save");
         } catch (IOException ex) {
             System.out.println("Error while saving image-" + ex);
         }
@@ -61,8 +59,8 @@ public class Downloader extends Scraper {
     }
 
     public static void main(String[] args) throws IOException {
-        FetchHTML fh = new FetchHTML(new CodeValidator("371274").toString());
-        Downloader dwnl = new Downloader(fh.main(), "371274");
-        dwnl.downloadImage("https://i.nhentai.net/galleries/1997899/1.jpg", "test.jpg");
+        FetchHTML fh = new FetchHTML(new CodeValidator("#374873").toString());
+        Downloader d = new Downloader(fh.main(), "374873");
+        d.startDownload();
     }
 }

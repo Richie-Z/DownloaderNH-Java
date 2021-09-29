@@ -3,7 +3,6 @@ package com.richie.nhdownloder.scraper;
 import com.richie.nhdownloder.url.FetchHTML;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.jsoup.Jsoup;
