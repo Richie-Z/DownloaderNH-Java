@@ -57,10 +57,4 @@ public class Downloader extends Scraper {
         }
 
     }
-
-    public static void main(String[] args) throws IOException {
-        FetchHTML fh = new FetchHTML(new CodeValidator("#374873").toString());
-        Downloader d = new Downloader(fh.main(), "374873");
-        d.startDownload();
-    }
 }
