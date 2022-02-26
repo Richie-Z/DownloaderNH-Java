@@ -12,7 +12,7 @@ import org.jsoup.nodes.Document;
  *
  * @author Richie-PC
  */
-public class Downloader extends Scraper {
+public class Downloader extends Scraper{
 
     private final String HOME = System.getProperty("user.home");
     private final String DOWNLOAD_HOME = HOME + "/Downloads/" + "nh_downloader/";

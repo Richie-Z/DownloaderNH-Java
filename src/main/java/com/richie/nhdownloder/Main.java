@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        String code = new CodeValidator("#374873").toString();
+        String code = new CodeValidator("#").toString();
         FetchHTML fh = new FetchHTML(code);
         Downloader d = new Downloader(fh.main(), code);
         d.startDownload();
